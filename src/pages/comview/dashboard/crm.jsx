@@ -37,7 +37,7 @@ const CrmPage = () => {
   const [data, setData] = useState();
   useEffect(() => {
     axios
-      .get("https://conview-backend-3.onrender.com/api/report/getAll")
+      .get("http://localhost:5000/api/report/getAll")
       .then((res) => {
         console.log(10, res.data.data);
         setData(res.data.data);
@@ -59,7 +59,7 @@ const CrmPage = () => {
             </Card>
           </div>
         </div>
-        {/* <ExampleTwo title="Recent Reports" /> */}
+       
         <ReportsTable data={data} />
       </div>
     </div>

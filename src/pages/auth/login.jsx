@@ -6,8 +6,8 @@ import useDarkMode from "@/hooks/useDarkMode";
 import { ToastContainer } from "react-toastify";
 
 // image import
-import LogoWhite from "@/assets/images/logo/logo-white.svg";
-import Logo from "@/assets/images/logo/logo.svg";
+import LogoWhite from "@/assets/images/logo/cvlogo.png";
+import Logo from "@/assets/images/logo/cvlogo.png";
 import Illustration from "@/assets/images/auth/ils1.svg";
 
 const login = () => {
@@ -40,12 +40,12 @@ const login = () => {
           <div className="right-column relative">
             <div className="inner-content h-full flex flex-col bg-white dark:bg-slate-800">
               <div className="auth-box h-full flex flex-col justify-center">
-                <div className="mobile-logo text-center mb-6 lg:hidden block">
+                <div className="mobile-logo text-center mb-6 lg:hidden block ">
                   <Link to="/">
                     <img
                       src={isDark ? LogoWhite : Logo}
                       alt=""
-                      className="mx-auto"
+                      className="mx-auto w-20"
                     />
                   </Link>
                 </div>
@@ -56,7 +56,6 @@ const login = () => {
                   </div>
                 </div>
                 <LoginForm />
-               
               </div>
               <div className="auth-footer text-center">
                 Copyright 2021, CONVIEW All Rights Reserved.
