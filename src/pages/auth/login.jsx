@@ -18,17 +18,7 @@ const login = () => {
       <div className="loginwrapper">
         <div className="lg-inner-column">
           <div className="left-column relative z-[1]">
-            {/* <div className="max-w-[520px] pt-20 ltr:pl-20 rtl:pr-20">
-              <Link to="/">
-                <img src={isDark ? LogoWhite : Logo} alt="" className="mb-10" />
-              </Link>
-              <h4>
-                Unlock your Project
-                <span className="text-slate-800 dark:text-slate-400 font-bold">
-                  performance
-                </span>
-              </h4>
-            </div> */}
+          
             <div className="absolute  h-full w-full z-[-1]">
               <img
                 src="https://images.pexels.com/photos/12852072/pexels-photo-12852072.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"

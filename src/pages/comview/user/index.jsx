@@ -1,12 +1,13 @@
-import React from 'react'
-import UnderConstructionPage from '../../utility/under-construction'
+import React from "react";
+import UnderConstructionPage from "../../utility/under-construction";
+import UserTable from "./UserTable";
 
 const User = () => {
   return (
     <div>
-      <UnderConstructionPage />
+      <UserTable />
     </div>
-  )
-}
+  );
+};
 
-export default User
+export default User;

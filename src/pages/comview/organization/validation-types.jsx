@@ -4,6 +4,7 @@ import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
 
 const FormValidationSchema = yup
   .object({
@@ -20,12 +21,22 @@ const ValidationTypes = () => {
     register,
     formState: { errors },
     handleSubmit,
+    reset, // This function will reset the form
   } = useForm({
     resolver: yupResolver(FormValidationSchema),
   });
 
   const onSubmit = (data) => {
     console.log(data);
+    axios
+      .post("https://conview-backend.onrender.com/api/organization/create")
+      .then((res) => {
+        console.log(res.data);
+        reset()
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -37,7 +48,7 @@ const ValidationTypes = () => {
         <Textinput
           label="Company Name"
           type="text"
-          placeholder="Type your User Name"
+          placeholder="Type your Company Name"
           name="CompanyName"
           register={register}
           error={errors.CompanyName}
@@ -45,23 +56,23 @@ const ValidationTypes = () => {
         <Textinput
           label="First Name"
           type="text"
-          placeholder="Enter Number Only"
-          name="number"
+          placeholder="Enter First Name"
+          name="firstName"
           register={register}
           error={errors.firstName}
         />
         <Textinput
           label="Last  Name"
           type="text"
-          placeholder="Enter Number Only"
-          name="number"
+          placeholder="Enter Last  Name"
+          name="lastName"
           register={register}
           error={errors.lastName}
         />
         <Textinput
-          label="address"
+          label="Address"
           type="text"
-          placeholder="Enter Number between 1 & 10"
+          placeholder="Enter Address"
           name="address"
           register={register}
           error={errors.address}
@@ -69,7 +80,7 @@ const ValidationTypes = () => {
         <Textinput
           label="city"
           type="text"
-          placeholder="Enter Number between 1 & 10"
+          placeholder="Enter City"
           name="city"
           register={register}
           error={errors.city}
@@ -117,7 +128,9 @@ const ValidationTypes = () => {
 
         <div className="lg:col-span-2 col-span-1">
           <div className="ltr:text-right rtl:text-left">
-            <button className="btn btn bg-[#7656f3] hover:bg-[#6543f0] text-white text-center">Submit</button>
+            <button className="btn btn bg-[#7656f3] hover:bg-[#6543f0] text-white text-center">
+              Submit
+            </button>
           </div>
         </div>
       </form>

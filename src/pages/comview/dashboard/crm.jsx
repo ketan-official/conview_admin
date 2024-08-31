@@ -10,34 +10,11 @@ import ImageBlock1 from "@/components/partials/widget/block/image-block-1";
 import GroupChart1 from "@/components/partials/widget/chart/group-chart-1";
 import ReportsTable from "../report/ReportsTable";
 import axios from "axios";
-
-const campaigns = [
-  {
-    name: "Channel",
-    value: "roi",
-  },
-  {
-    name: "Email",
-    value: "40%",
-  },
-  {
-    name: "Website",
-    value: "28%",
-  },
-  {
-    name: "Facebook",
-    value: "34%",
-  },
-  {
-    name: "Offline",
-    value: "17%",
-  },
-];
 const CrmPage = () => {
   const [data, setData] = useState();
   useEffect(() => {
     axios
-      .get("https://conview-backend-3.onrender.com/api/report/getAll")
+      .get("https://conview-backend.onrender.com/api/report/getAll")
       .then((res) => {
         console.log(10, res.data.data);
         setData(res.data.data);

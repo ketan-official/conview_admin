@@ -207,19 +207,19 @@ const statistics = [
   {
     name: shapeLine1,
     title: "Totel Reports",
-    count: "2",
+    count: "3,564",
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
   },
   {
     name: shapeLine2,
     title: "Total Users",
-    count: "2",
+    count: "564",
     bg: "bg-[#FFEDE5] dark:bg-slate-900	",
   },
   {
     name: shapeLine3,
     title: "Database Assets",
-    count: "5",
+    count: "+5.0%",
     bg: "bg-[#EAE5FF] dark:bg-slate-900	",
   },
 ];

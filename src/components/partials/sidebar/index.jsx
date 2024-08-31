@@ -7,8 +7,10 @@ import useSidebar from "@/hooks/useSidebar";
 import useSemiDark from "@/hooks/useSemiDark";
 import useSkin from "@/hooks/useSkin";
 import svgRabitImage from "@/assets/images/svg/rabit.svg";
+import { menuItemsUser } from "../../../constant/data";
 
 const Sidebar = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const scrollableNodeRef = useRef();
   const [scroll, setScroll] = useState(false);
 
@@ -61,7 +63,15 @@ const Sidebar = () => {
           className="sidebar-menu px-4 h-[calc(100%-80px)]"
           scrollableNodeProps={{ ref: scrollableNodeRef }}
         >
-          <Navmenu menus={menuItems} />
+          {user.user.role === "admin" ? (
+            <>
+              <Navmenu menus={menuItems} />
+            </>
+          ) : (
+            <>
+              <Navmenu menus={menuItemsUser} />
+            </>
+          )}
           {/* {!collapsed && (
             <div className="bg-slate-900 mb-16 mt-24 p-4 relative text-center rounded-2xl text-white">
               <img

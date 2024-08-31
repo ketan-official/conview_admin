@@ -3,13 +3,14 @@ import ContaintCard from "../../common/ContaintCard";
 import axios from "axios";
 
 const index = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://conview-backend.onrender.com/api/assets/getAll`)
+      .get(`https://conview-backend.onrender.com/api/assets/get-user/${user.user._id}`)
       .then((res) => {
-        console.log(11,res.data.data);
-        setData(res.data.data);
+        console.log(res.data.Data);
+        setData(res.data.Data);
       })
       .catch((err) => {
         console.error(err);

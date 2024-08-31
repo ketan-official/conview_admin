@@ -107,8 +107,12 @@ const ProjectDetailsPage = lazy(() =>
 );
 
 // COnview  dashboard
-const Report =lazy(()=>import("./pages/comview/report"))
-
+const Report = lazy(() => import("./pages/comview/report"));
+// COnview user  dashboard
+const Dashoard = lazy(() => import("./pages/user-comview/dashboard"));
+const Assets = lazy(() => import("./pages/user-comview/assets"));
+const UserReport = lazy(() => import("./pages/user-comview/report"));
+const UserCOntaintManager = lazy(() => import("./pages/user-comview/containt-manager"));
 
 const KanbanPage = lazy(() => import("./pages/app/kanban"));
 const CalenderPage = lazy(() => import("./pages/app/calender"));
@@ -228,8 +232,11 @@ function App() {
           <Route path="organization" element={<Organization />} />
           <Route path="users" element={<User />} />
           <Route path="containt-manager" element={<ContaintManager />} />
-
-
+          {/* conview User Dashboard */}
+          <Route path="dashboard" element={<Dashoard />} />
+          <Route path="assets" element={<Assets />} />
+          <Route path="user-report" element={<UserReport />} />
+          <Route path="user-containtManager" element={<UserCOntaintManager />} />
 
           {/* App pages */}
           <Route path="todo" element={<TodoPage />} />

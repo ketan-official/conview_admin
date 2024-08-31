@@ -17,22 +17,22 @@ const profile = () => {
             <div className="md:flex items-end md:space-x-6 rtl:space-x-reverse">
               <div className="flex-none">
                 <div className="md:h-[186px] md:w-[186px] h-[140px] w-[140px] md:ml-0 md:mr-0 ml-auto mr-auto md:mb-0 mb-4 rounded-full ring-4 ring-slate-100 relative">
-                  {/* <img
+                  <img
                     src={ProfileImage}
                     alt=""
                     className="w-full h-full object-cover rounded-full"
-                  /> */}
-                  {/* <Link
+                  />
+                  <Link
                     to="#"
                     className="absolute right-2 h-8 w-8 bg-slate-50 text-slate-600 rounded-full shadow-sm flex flex-col items-center justify-center md:top-[140px] top-[100px]"
                   >
                     <Icon icon="heroicons:pencil-square" />
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
               <div className="flex-1">
                 <div className="text-2xl font-medium text-slate-900 dark:text-slate-200 mb-[3px]">
-                  Admin
+                  Albert Flores
                 </div>
                 <div className="text-sm font-light text-slate-600 dark:text-slate-400">
                   Front End Developer

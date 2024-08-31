@@ -7,7 +7,7 @@ import UnderConstructionPage from "../../utility/under-construction";
 const Organization = () => {
   return (
     <>
-      {/* <div className="xl:col-span-2 col-span-1">
+      <div className="xl:col-span-2 col-span-1">
         <Card title="Add Photo">
           <DropZone />
         </Card>
@@ -19,9 +19,9 @@ const Organization = () => {
             <ValidationTypes />
           </Card>
         </div>
-      </div> */}
+      </div>
 
-<UnderConstructionPage />
+{/* <UnderConstructionPage /> */}
     </>
   );
 };
