@@ -36,7 +36,10 @@ const profileLabel = () => {
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const onLogout = () => {
+    dispatch(handleLogout(false)); // Dispatch the logout action
+    navigate("/"); // Navigate to the homepage after logout
+  };
   const ProfileMenu = [
     // {
     //   label: "Profile",
@@ -92,7 +95,7 @@ const Profile = () => {
       label: "Logout",
       icon: "heroicons-outline:login",
       action: () => {
-        dispatch(handleLogout(false));
+        onLogout()
       },
     },
   ];

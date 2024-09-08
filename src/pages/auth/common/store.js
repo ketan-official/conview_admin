@@ -82,10 +82,11 @@ export const authSlice = createSlice({
     handleLogout: (state, action) => {
       state.isAuth = action.payload;
       // remove isAuth from local storage
-      window.localStorage.removeItem("isAuth");
+      window.localStorage.removeItem("user");
       toast.success("User logged out successfully", {
         position: "top-right",
       });
+      
     },
   },
 });

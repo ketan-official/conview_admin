@@ -113,6 +113,8 @@ const Dashoard = lazy(() => import("./pages/user-comview/dashboard"));
 const Assets = lazy(() => import("./pages/user-comview/assets"));
 const UserReport = lazy(() => import("./pages/user-comview/report"));
 const UserCOntaintManager = lazy(() => import("./pages/user-comview/containt-manager"));
+const UserOrganization = lazy(() => import("./pages/user-comview/user-organization"));
+const LandingPage = lazy(() => import("./pages/landing-page"));
 
 const KanbanPage = lazy(() => import("./pages/app/kanban"));
 const CalenderPage = lazy(() => import("./pages/app/calender"));
@@ -125,10 +127,18 @@ function App() {
     <main className="App  relative">
       <Routes>
         <Route
-          path="/"
+          path="/login"
           element={
             <Suspense fallback={<Loading />}>
               <Login />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<Loading />}>
+              <LandingPage />
             </Suspense>
           }
         />
@@ -220,6 +230,9 @@ function App() {
             </Suspense>
           }
         />
+
+
+
         <Route path="/*" element={<Layout />}>
           <Route path="dashboard1" element={<Dashboard />} />
           <Route path="ecommerce" element={<Ecommerce />} />
@@ -230,13 +243,16 @@ function App() {
           <Route path="crm" element={<CrmPage />} />
           <Route path="report" element={<Report />} />
           <Route path="organization" element={<Organization />} />
+          <Route path={"organization/:id"} element={<Organization />} />
           <Route path="users" element={<User />} />
           <Route path="containt-manager" element={<ContaintManager />} />
           {/* conview User Dashboard */}
           <Route path="dashboard" element={<Dashoard />} />
           <Route path="assets" element={<Assets />} />
+          <Route path={"assets/:id"} element={<Assets />} />
           <Route path="user-report" element={<UserReport />} />
           <Route path="user-containtManager" element={<UserCOntaintManager />} />
+          <Route path="user-organization" element={<UserOrganization />} />
 
           {/* App pages */}
           <Route path="todo" element={<TodoPage />} />

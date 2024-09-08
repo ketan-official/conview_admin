@@ -6,10 +6,11 @@ const index = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://conview-backend.onrender.com/api/assets/getAll`)
+      .get(`http://localhost:5000/api/assets/getAll`)
       .then((res) => {
-        console.log(11,res.data.data);
-        setData(res.data.data);
+        const data = res.data.data;
+        const revData = data.reverse();
+        setData(revData);
       })
       .catch((err) => {
         console.error(err);

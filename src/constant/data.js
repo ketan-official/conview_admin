@@ -64,13 +64,13 @@ export const menuItemsUser = [
     isHide: true,
     link: "user-report", 
   },
-  // {
-  //   title: "Organization",
-  //   icon: "heroicons-outline:office-building", // Updated to office-building
-  //   isOpen: true,
-  //   isHide: true,
-  //   link: "organization",
-  // },
+  {
+    title: "Organization",
+    icon: "heroicons-outline:office-building", // Updated to office-building
+    isOpen: true,
+    isHide: true,
+    link: "user-organization",
+  },
   // {
   //   title: "Users",
   //   icon: "heroicons-outline:user-group", // Updated to user-group

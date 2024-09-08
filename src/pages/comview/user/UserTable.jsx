@@ -33,10 +33,15 @@ const UserTable = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     axios
-      .get("https://conview-backend.onrender.com/api/user/getAll")
+      .get("http://localhost:5000/api/user/getAll")
       .then((res) => {
-        console.log(49,res.data.data);
-        setUsers(res.data.data);
+        console.log(49, res.data.data);
+        const data = res.data.data;
+        
+        // Correct the spelling of reverse
+        const revData = data.reverse(); 
+        
+        setUsers(revData);
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +111,7 @@ const UserTable = () => {
 
   const handleDelete = (id) => {
     axios
-    .delete(`https://conview-backend.onrender.com/api/user/delete/${id}`)
+    .delete(`http://localhost:5000/api/user/delete/${id}`)
     .then((res) => {
       console.log(49,res.data.data);
       toast.success("User Deleted Sucesfully")

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ContaintCard = ({data}) => {
+const ContaintCard = ({data ,onEdit}) => {
     console.log(4,data)
   return (
     <>
@@ -36,7 +36,7 @@ const ContaintCard = ({data}) => {
                   </div>
                 </td>
                 <td class="px-6 py-4">
-                  <button class="text-blue-500 hover:underline">Edit</button> /
+                  <button class="text-blue-500 hover:underline" onClick={()=>onEdit(data._id)}>Edit</button> /
                   <button class="text-red-500 hover:underline">Delete</button>
                 </td>
               </tr>

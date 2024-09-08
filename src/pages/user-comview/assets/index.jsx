@@ -1,35 +1,101 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Index = () => {
+  const { id } = useParams();
+  console.log(id);
   const user = JSON.parse(localStorage.getItem("user"));
   const [section, setSection] = useState([]);
   const [subsection, setsubSection] = useState([]);
+  const [subChieldsection, setsubChieldSection] = useState([]);
   const [formData, setFormData] = useState({
     assetNumber: "Auto Generate",
     section: "",
     subsection: "",
     description: "",
     additionalParam1: "",
-    additionalParam2: "",
-    additionalParam3: "",
-    additionalParam4: "",
     other: "",
     image: null,
     userId: user.user._id,
   });
   useEffect(() => {
     axios
-      .get("https://conview-backend.onrender.com/api/sub-sec/get-by-sec")
+      .get("http://localhost:5000/api/sub-sec/get-by-sec")
       .then((res) => {
-        console.log(23, res.data);
-        setSection(res.data);
+        console.log(27, res.data);
+        setSection(res.data); // Ensure section is populated
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+  
+  useEffect(() => {
+    if (id) {
+      axios
+        .get(`http://localhost:5000/api/assets/get/${id}`)
+        .then((res) => {
+          console.log(23, res.data.Data[0]);
+          const data = res.data.Data[0];
+  
+          // Wait for the section state to be populated before calling getsubCat
+          if (data.section?._id) {
+            getsubCat(data.section._id);
+          }
+  
+          setFormData({
+            assetNumber: data.assetNumber || "Auto Generate", // default if not available
+            section: data.section?._id || "",
+            subsection: data.subsection?._id || "",
+            description: data.description || "",
+            additionalParam1: data.additionalParam1 || "",
+            other: data.other || "",
+            image: data.image || null,
+            userId: user?.user?._id, // Ensure userId is intact and safe
+          });
+          // Optionally, handle subsection child categories later
+          if (data.subsection?._id) {
+            getsubChieldCat(data.subsection._id);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [id, section]); // Add section as a dependency so that getsubCat can work with the updated section
+  
+  const getsubCat = (id) => {
+    const SubSec = section.find((item) => item._id === id);
+    
+    // Ensure SubSec exists before accessing its properties
+    if (SubSec) {
+      setsubSection(SubSec?.subcategories || []);
+      console.log(95, SubSec?.subcategories);
+  
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        section: id,
+      }));
+    }
+  };
+  
+  const getsubChieldCat = (id) => {
+    const SubSec = subsection.find((item) => item._id === id);
+    
+    if (SubSec) {
+      console.log(104, SubSec.subChildCategories);
+      setsubChieldSection(SubSec?.subChildCategories || []);
+  
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        subsection: id,
+      }));
+    }
+  };
+  
+
   const [errors, setErrors] = useState({});
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -67,7 +133,7 @@ const Index = () => {
       console.log("Tada!", formData);
       // Reset form (except for assetNumber which is auto-generated)
       axios
-        .post("https://conview-backend.onrender.com/api/assets/create", formData)
+        .post("http://localhost:5000/api/assets/create", formData)
         .then((res) => {
           console.log(res.data);
           toast.success("asset Submitted Succefully...");
@@ -81,9 +147,9 @@ const Index = () => {
         subsection: "",
         description: "",
         additionalParam1: "",
-        additionalParam2: "",
-        additionalParam3: "",
-        additionalParam4: "",
+        // additionalParam2: "",
+        // additionalParam3: "",
+        // additionalParam4: "",
         other: "",
         image: null,
       });
@@ -91,21 +157,52 @@ const Index = () => {
       setErrors({});
     }
   };
-  const getsubCat = (id) => {
-    const SubSec = section.find((item) => item._id === id);
-    console.log(95, SubSec.subcategories);
-    setsubSection(SubSec.subcategories);
-    setFormData({
-      ...formData,
-      section: id,
-    });
+  const handleUpdate = (e) => {
+    e.preventDefault();
+
+    // Simple validation
+    const newErrors = {};
+    if (!formData.description)
+      newErrors.description = "Description is required";
+    if (!formData.section) newErrors.section = "Section is required";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+    } else {
+      console.log("Tada!", formData);
+      axios
+        .put(`http://localhost:5000/api/assets/update/${id}`, formData)
+        .then((res) => {
+          console.log(res.data);
+          toast.success("asset Updated Succefully...");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      setFormData({
+        ...formData,
+        section: "",
+        subsection: "",
+        description: "",
+        additionalParam1: "",
+        // additionalParam2: "",
+        // additionalParam3: "",
+        // additionalParam4: "",
+        other: "",
+        image: null,
+      });
+      setImagePreview(null);
+      setErrors({});
+    }
   };
+
+
   return (
     <div className="max-w-3xl mx-auto bg-white p-8 rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">
         Add New Asset
       </h2>
-      <form onSubmit={handleSubmit}>
+      <form >
         <div className="grid grid-cols-2 gap-6">
           {/* Asset Number */}
           {/* <div className="col-span-2 md:col-span-1">
@@ -160,7 +257,7 @@ const Index = () => {
               name="subsection"
               id="subsection"
               value={formData.subsection}
-              onChange={handleChange}
+              onChange={(e) => getsubChieldCat(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded-md"
             >
               <option value="">Select</option>
@@ -211,11 +308,17 @@ const Index = () => {
               className="w-full p-2 border border-gray-300 rounded-md mb-4"
             >
               <option value="">Select</option>
-              <option value="param1">Parameter 1</option>
+              {subChieldsection.map((item) => {
+                return (
+                  <option key={item._id} value={item._id}>
+                    {item.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
-          <div className="col-span-2 md:col-span-1 mt-7">
+          {/* <div className="col-span-2 md:col-span-1 mt-7">
             <select
               name="additionalParam2"
               id="additionalParam2"
@@ -252,7 +355,7 @@ const Index = () => {
               <option value="">Select</option>
               <option value="param4">Parameter 4</option>
             </select>
-          </div>
+          </div> */}
 
           {/* Other */}
           <div className="col-span-2">
@@ -321,12 +424,27 @@ const Index = () => {
           >
             Cancel
           </button>
+          {
+            id ?(<>
+            
           <button
             type="submit"
             className="px-4 py-2 bg-orange-500 text-white rounded-md"
+            onClick={(e)=>handleUpdate(e)}
+          >
+            update
+          </button>
+            </>):(<>
+          <button
+            type="submit"
+            className="px-4 py-2 bg-orange-500 text-white rounded-md"
+            onClick={(e)=>handleSubmit(e)}
           >
             Save
           </button>
+            
+            </>)
+          }
         </div>
       </form>
     </div>
